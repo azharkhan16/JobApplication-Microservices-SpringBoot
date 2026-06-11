@@ -1,10 +1,12 @@
 package com.azharx.jobservice.job;
 
+import com.azharx.jobservice.job.dto.JobWithCompanyDTO;
+
 import java.util.List;
 
 public interface JobService {
 
-    List<Job> findAll();
+    List<JobWithCompanyDTO> findAll();
 
     void createJob(Job job);
 
