@@ -6,8 +6,6 @@ import com.azharx.jobservice.job.dto.JobWithCompanyDTO;
 import com.azharx.jobservice.job.external.Company;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
