@@ -29,6 +29,16 @@ services:
       - mysql
     restart: unless-stopped
 
+  zipkin:
+    container_name: jobapp_zipkin_container
+    image: openzipkin/zipkin
+    ports:
+      - "9412:9411"
+    networks:
+      - mysql
+    restart: unless-stopped
+
+
 networks:
   mysql:
     driver: bridge
