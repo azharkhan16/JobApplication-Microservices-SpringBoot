@@ -1,36 +1,26 @@
 package com.azharx.jobservice.job.mapper;
 
 import com.azharx.jobservice.job.Job;
-import com.azharx.jobservice.job.dto.JobWithCompanyDTO;
+import com.azharx.jobservice.job.dto.JobDTO;
 import com.azharx.jobservice.job.external.Company;
+import com.azharx.jobservice.job.external.Review;
+
+import java.util.List;
 
 public class JobMapper {
 
-    public static JobWithCompanyDTO mapToJobWithCompanyDto(Job job, Company company) {
+    public static JobDTO mapToJobWithCompanyDto(Job job, Company company, List<Review> reviews) {
 
-        JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
-        jobWithCompanyDTO.setId(job.getId());
-        jobWithCompanyDTO.setTitle(job.getTitle());
-        jobWithCompanyDTO.setDescription(job.getDescription());
-        jobWithCompanyDTO.setMinSalary(job.getMinSalary());
-        jobWithCompanyDTO.setMaxSalary(job.getMaxSalary());
-        jobWithCompanyDTO.setLocation(job.getLocation());
-        jobWithCompanyDTO.setCompany(company);
+        JobDTO jobDTO = new JobDTO();
+        jobDTO.setId(job.getId());
+        jobDTO.setTitle(job.getTitle());
+        jobDTO.setDescription(job.getDescription());
+        jobDTO.setMinSalary(job.getMinSalary());
+        jobDTO.setMaxSalary(job.getMaxSalary());
+        jobDTO.setLocation(job.getLocation());
+        jobDTO.setCompany(company);
+        jobDTO.setReviews(reviews);
 
-        return jobWithCompanyDTO;
+        return jobDTO;
     }
 }
-
-//===== IMP => refactor: replace nested job DTO structure with flattened response using JobMapper =====
-//getJobById() response before JobMapper Class :
-//        {
-//        "job": { ... },
-//        "company": { ... }
-//        }
-//
-//getJobById() response after JobMapper Class :
-//        {
-//        "id": 1,
-//        "title": "...",
-//        "company": { ... }
-//        }
