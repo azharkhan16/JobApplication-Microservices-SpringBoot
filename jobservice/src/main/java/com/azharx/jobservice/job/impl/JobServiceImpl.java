@@ -4,6 +4,7 @@ import com.azharx.jobservice.job.JobRepository;
 import com.azharx.jobservice.job.JobService;
 import com.azharx.jobservice.job.dto.JobWithCompanyDTO;
 import com.azharx.jobservice.job.external.Company;
+import com.azharx.jobservice.job.mapper.JobMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -68,11 +69,9 @@ public class JobServiceImpl implements JobService {
     }
 
     private JobWithCompanyDTO convertToDto(Job job) {
-            JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
-            jobWithCompanyDTO.setJob(job);
-//            RestTemplate restTemplate = new RestTemplate();
             Company company = restTemplate
                     .getForObject("http://COMPANY-SERVICE:8081/companies/" + job.getCompanyId(), Company.class);
+            JobWithCompanyDTO jobWithCompanyDTO = JobMapper.mapToJobWithCompanyDto(job, company);
             jobWithCompanyDTO.setCompany(company);
 
             return jobWithCompanyDTO;
