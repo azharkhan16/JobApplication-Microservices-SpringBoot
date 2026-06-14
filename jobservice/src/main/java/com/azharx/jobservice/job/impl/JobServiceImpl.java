@@ -8,6 +8,7 @@ import com.azharx.jobservice.job.dto.JobDTO;
 import com.azharx.jobservice.job.external.Company;
 import com.azharx.jobservice.job.external.Review;
 import com.azharx.jobservice.job.mapper.JobMapper;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -32,6 +33,7 @@ public class JobServiceImpl implements JobService {
 
 
     @Override
+    @CircuitBreaker(name = "companyBreaker")
     public List<JobDTO> findAll() {
         List<Job> jobs = jobRepository.findAll();
         return jobs.stream().map(this::convertToDto).collect(Collectors.toList());
