@@ -1,6 +1,8 @@
 package com.azharx.jobservice.job;
 
 import com.azharx.jobservice.job.dto.JobDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,5 +57,14 @@ public class JobController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+    }
+
+    @Autowired
+    private Environment environment;
+    @GetMapping("/instance")
+    public String instance() {
+        String port = environment.getProperty("local.server.port");
+        System.out.println("Request served by port: " + port);
+        return "Running on port: " + port;
     }
 }
